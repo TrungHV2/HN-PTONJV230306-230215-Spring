@@ -1,0 +1,12 @@
+#server.port=8181
+#server.error.path=/path
+server:
+  port: 8181
+
+
+error:
+  message: ${ENV_MESSAGE:Mô tả mã lỗi}
+  login: Sai tài khoản mật khẩu
+  register: Trùng user tài khoản
+  auth: true
+  status: SUCCESS,FAILED,TIMEOUT
