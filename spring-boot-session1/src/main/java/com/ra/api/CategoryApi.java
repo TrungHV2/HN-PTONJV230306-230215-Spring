@@ -1,6 +1,7 @@
 package com.ra.api;
 
 
+import com.ra.model.dto.CategoryResponse;
 import com.ra.model.entity.CategoryEntity;
 import com.ra.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class CategoryApi {
     private CategoryService categoryService;
 
     @GetMapping
-    public List<CategoryEntity> get() {
+    public List<CategoryResponse> get() {
         return categoryService.findAll();
     }
     @PostMapping

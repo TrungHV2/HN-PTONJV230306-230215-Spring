@@ -11,6 +11,7 @@ spring:
     hikari:
       maximum-pool-size: 15
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: none
       naming:
@@ -20,8 +21,7 @@ spring:
       hibernate.format-sql: true
       hibernate.jdbc.batch_size: 2000
       hibernate.dialect: org.hibernate.dialect.MySQL57Dialect
-      hibernate.current_session_context: org.springframework.orm.hibernate5.SpringSessionContext
-    show-sql: true
+      hibernate.current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
 
 error:
   message: ${ENV_MESSAGE:Mô tả mã lỗi}
