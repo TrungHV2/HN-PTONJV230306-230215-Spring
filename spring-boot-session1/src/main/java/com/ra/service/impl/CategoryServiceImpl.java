@@ -7,6 +7,8 @@ import com.ra.model.entity.CategoryEntity;
 import com.ra.repository.CategoryRepository;
 import com.ra.service.CategoryService;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CategoryServiceImpl.class);
     private CategoryRepository repository;
 
     public CategoryServiceImpl(CategoryRepository repository) {
@@ -38,7 +41,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryEntity saveOrUpdate(CategoryEntity entity) {
-        entity.setId(UUID.randomUUID().toString());
-        return repository.save(entity);
+        try {
+            LOGGER.info("====Start CategoryServiceImpl saveOrUpdate====");
+            entity.setId(UUID.randomUUID().toString());
+            LOGGER.info("====Start CategoryServiceImpl saveOrUpdate successfully====");
+            return repository.save(entity);
+        } catch (Exception ex) {
+            LOGGER.error("====Exception CategoryServiceImpl saveOrUpdate with ex: {}====", ex);
+            throw ex;
+        }
     }
 }

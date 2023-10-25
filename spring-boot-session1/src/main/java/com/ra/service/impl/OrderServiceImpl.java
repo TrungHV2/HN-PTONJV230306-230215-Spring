@@ -17,14 +17,14 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDetailRepository orderDetailRepository;
 
-    @Transactional
+    //@Transactional
     @Override
     public void insert(OrderEntity entity) {
         orderRepository.save(entity);
         for (OrderDetailEntity od : entity.getOrderDetails()) {
             OrderEntity o = new OrderEntity();
             o.setId(entity.getId());
-            od.setOrder(o);
+            od.setOrder(entity);
             orderDetailRepository.save(od);
         }
     }
