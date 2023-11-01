@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/categories")
+@CrossOrigin
 public class CategoryApi {
     private static final Logger LOGGER = LoggerFactory.getLogger(CategoryApi.class);
 

@@ -11,6 +11,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin
 public class UserApi {
     public static List<User> users = new ArrayList<>();
 
