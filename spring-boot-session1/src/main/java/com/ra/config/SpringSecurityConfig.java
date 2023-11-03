@@ -57,7 +57,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     return cors;
                 }).and()
                 .authorizeRequests()
-                .antMatchers("/token", "/api/customer/**").permitAll()
+                .antMatchers("/token", "/api/customer/**", "/api/files/load/**").permitAll()
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .antMatchers("/api/employee/**").hasRole("EMPLOYEE")
                 .anyRequest().authenticated()

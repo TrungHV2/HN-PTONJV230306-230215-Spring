@@ -31,6 +31,7 @@ function App() {
 
   return (
     <>
+      <img src='http://localhost:8181/api/files/load/gv_nguyen_duy_quang.jpg' />
       <button onClick={handleLoadData}>Load data</button>
       <table border={1} cellPadding={5} cellSpacing={0} width={'100%'}>
         <thead>

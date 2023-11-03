@@ -1,8 +1,11 @@
 package com.ra.service.impl;
 
+import com.ra.model.dto.CustomerRequest;
 import com.ra.model.entity.CustomerEntity;
 import com.ra.repository.CustomerRepository;
 import com.ra.service.CustomerService;
+import com.ra.service.FileStorageService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,9 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private FileStorageService fileStorageService;
+    private ModelMapper mapper = new ModelMapper();
 
     @Override
     public List<CustomerEntity> findAll() {
@@ -32,9 +38,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerEntity insertOrUpdate(CustomerEntity entity) {
+    public CustomerEntity insertOrUpdate(CustomerRequest entity) {
         try {
-            return customerRepository.save(entity);
+            CustomerEntity cus = mapper.map(entity, CustomerEntity.class);
+//            if (entity.getFile() != null && !entity.getFile().isEmpty()) {
+//                fileStorageService.save(entity.getFile());
+//                cus.setAvatar(entity.getFile().getOriginalFilename());
+//            }
+            return customerRepository.save(cus);
         } catch (Exception ex) {
             throw ex;
         }

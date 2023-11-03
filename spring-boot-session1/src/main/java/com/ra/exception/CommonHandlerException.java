@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 @ControllerAdvice
 @Order(value = PriorityOrdered.HIGHEST_PRECEDENCE)
@@ -21,10 +20,17 @@ public class CommonHandlerException {
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<Object> handlerException(Throwable ex, HttpServletRequest request) {
         HttpHeaders headers = new HttpHeaders();
+        if (ex instanceof BaseException) {
+            BaseException exception = (BaseException) ex;
+            return new ResponseEntity<>(exception.getErrorMessage(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
         LOGGER.error("===Process with error: {}", ex.getMessage());
         return new ResponseEntity<>(ErrorMessage.builder()
-                .code("RA-01-500")
-                .message(ex.getMessage())
+                .code(ErrorCode.INTERNAL_SERVER_ERROR)
+                .message(Messages.builder()
+                        .en(ex.getMessage())
+                        .build())
                 .build(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
