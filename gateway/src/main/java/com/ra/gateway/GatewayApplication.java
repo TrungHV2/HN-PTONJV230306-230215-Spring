@@ -7,17 +7,17 @@ import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 
-@EnableEurekaClient
 @SpringBootApplication
+@EnableEurekaClient
 public class GatewayApplication {
 
 //	@Bean
 //	public RouteLocator routeLocator(RouteLocatorBuilder builder) {
 //		return builder.routes()
-//				.route(p -> p
-//						.path("/gateway/catalog-service/**")
-//						.uri("http://trunghv:8100/")
-//				)
+//				.route("catalog-service", r -> r
+//						.path("/catalog-service/**")
+////						.uri("lb://catalog-core-service"))
+//						.uri("http://localhost:8100/"))
 //				.build();
 //	}
 

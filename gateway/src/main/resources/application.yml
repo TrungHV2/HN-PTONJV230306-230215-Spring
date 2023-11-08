@@ -1,27 +1,45 @@
 server:
-  port: 8762
+  port: 8181
 spring:
   application:
     name: gateway
   cloud:
-    discovery:
-      client:
-        simple:
-          instances:
-            catalog-service:
-              - uri: lb://catalog-core-service
     gateway:
+      httpclient:
+        connect-timeout: 180000
+        response-timeout: 180s
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - HEAD
+              - OPTIONS
+              - PATCH
       routes:
-        - id: catalog-service
+        - id: catalog-core-service
           uri: lb://catalog-core-service
           predicates:
-            - Path=/gateway/catalog-service/**
+            - Path=/catalog-core-service/**
+          filters:
+            - RewritePath=/catalog-core-service/(?<path>.*), /$\{path}
+        - id: product-core-service
+          uri: lb://product-core-service
+          predicates:
+            - Path=/product-core-service/**
+          filters:
+            - RewritePath=/product-core-service/(?<path>.*), /$\{path}
 eureka:
   client:
     service-url:
       default-zone: http://localhost:8761/eureka
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'
