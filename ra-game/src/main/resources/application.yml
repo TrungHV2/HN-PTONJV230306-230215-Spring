@@ -1,11 +1,7 @@
-#server.port=8181
-#server.error.path=/path
-server:
-  port: 8181
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test_db
+    url: jdbc:mysql://localhost:3306/ra_game
     username: root
     password: ''
     hikari:
@@ -22,15 +18,3 @@ spring:
       hibernate.jdbc.batch_size: 2000
       hibernate.dialect: org.hibernate.dialect.MySQL57Dialect
       hibernate.current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
-  servlet:
-    multipart:
-      enabled: true
-      max-file-size: 50MB
-      max-request-size: 50MB
-
-error:
-  message: ${ENV_MESSAGE:Mô tả mã lỗi}
-  login: Sai tài khoản mật khẩu
-  register: Trùng user tài khoản
-  auth: true
-  status: SUCCESS,FAILED,TIMEOUT
